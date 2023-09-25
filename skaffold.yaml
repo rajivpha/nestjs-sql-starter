@@ -1,0 +1,57 @@
+apiVersion: skaffold/v2beta20
+kind: Config
+metadata:
+  name: rlt
+profiles:
+
+#dev
+- name: rlt-auth-dev
+  build:
+    artifacts:
+    - image: 495454422438.dkr.ecr.us-west-1.amazonaws.com/rlt-auth-ecr-dev
+  deploy:
+    helm:
+      releases:
+      - name: rlt-auth-dev
+        namespace: rlt-dev
+        chartPath: ./helm-chart
+        valuesFiles: 
+          - ./helm-chart/values-dev.yaml
+        artifactOverrides:
+          deployment.image: 495454422438.dkr.ecr.us-west-1.amazonaws.com/rlt-auth-ecr-dev
+        imageStrategy:
+          fqn: {}
+#qa
+- name: rlt-auth-qa
+  build:
+    artifacts:
+    - image: 495454422438.dkr.ecr.us-west-1.amazonaws.com/rlt-auth-ecr-qa
+  deploy:
+    helm:
+      releases:
+      - name: rlt-auth-qa
+        namespace: rlt-qa
+        chartPath: ./helm-chart
+        valuesFiles: 
+          - ./helm-chart/values-qa.yaml
+        artifactOverrides:
+          deployment.image: 495454422438.dkr.ecr.us-west-1.amazonaws.com/rlt-auth-ecr-qa
+        imageStrategy:
+          fqn: {}
+
+#prod
+- name: rlt-auth-prod
+  build:
+    artifacts:
+    - image: 495454422438.dkr.ecr.us-east-1.amazonaws.com/rlt-auth-ecr-prod
+  deploy:
+    helm:
+      releases:
+      - name: rlt-auth-prod
+        chartPath: ./helm-chart
+        valuesFiles: 
+          - ./helm-chart/values-prod.yaml
+        artifactOverrides:
+          deployment.image: 495454422438.dkr.ecr.us-east-1.amazonaws.com/rlt-auth-ecr-prod
+        imageStrategy:
+          fqn: {}  

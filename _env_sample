@@ -1,0 +1,13 @@
+NODE_ENV=development
+PORT=5001
+JWT_SECRET_KEY=secret-token
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=root
+DB_PASSWORD=temp123
+DB_DATABASE=nestjs_sql_starter
+
+RABBIT_HOST=localhost
+RABBIT_USERNAME=guest
+RABBIT_PASSWORD=guest
